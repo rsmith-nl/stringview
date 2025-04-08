@@ -4,7 +4,7 @@
 # Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 # SPDX-License-Identifier: MIT
 # Created: 2025-04-07T22:53:50+0200
-# Last modified: 2025-04-09T00:14:52+0200
+# Last modified: 2025-04-09T00:41:30+0200
 
 # Define the C compiler to be used, if not the default cc.
 #CC = gcc13
@@ -101,7 +101,7 @@ style:  ## Reformat source code using astyle.
 
 .PHONY: tidy
 tidy:  ## Run static code checker clang-tidy.
-	clang-tidy19 --quiet *.c *.h
+	clang-tidy19 --quiet *.c *.h --
 
 clean:;  ## remove all generated files
 	-rm -f $(OBJS) core *~ $(SHARED) $(STATIC) $(TARFILE) \
