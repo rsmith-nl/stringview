@@ -4,7 +4,7 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-04-07T23:29:28+0200
+// Last modified: 2025-04-08T15:50:03+0200
 
 #include <assert.h>
 #include <string.h>
@@ -16,18 +16,18 @@ bool str_equals(Str a, Str b) {
 }
 
 Str str_lstrip(Str s) {
-    for (; s.len && *s.data<=' '; s.data++, s.len--) {}
+    while (s.len && *s.data<=' ') {s.data++, s.len--;}
     return s;
 }
 
 Str str_rstrip(Str s) {
-    for (; s.len && s.data[s.len-1]<=' '; s.len--) {}
+    while (s.len && s.data[s.len-1]<=' ') {s.len--;}
     return s;
 }
 
 Str str_strip(Str s) {
-    for (; s.len && *s.data<=' '; s.data++, s.len--) {}
-    for (; s.len && s.data[s.len-1]<=' '; s.len--) {}
+    while (s.len && *s.data<=' ') {s.data++, s.len--;}
+    while (s.len && s.data[s.len-1]<=' ') {s.len--;}
     return s;
 }
 
