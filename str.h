@@ -4,7 +4,7 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-04-08T17:07:51+0200
+// Last modified: 2025-04-09T00:55:09+0200
 
 #pragma once
 #include <stddef.h>  // ptrdiff_t
@@ -19,6 +19,13 @@ typedef struct {
   char *data;
   ptrdiff_t len;
 } s8;
+
+typedef struct {
+  s8 head;
+  s8 tail;
+  bool ok;
+} Cut;
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -39,6 +46,16 @@ s8 s8strip(s8 s);
 // Return the offset of the string f in the string s.
 // If not found, return -1.
 ptrdiff_t s8find(s8 s, s8 f);
+
+// Return the amount of occurrances of the character f in string s.
+ptrdiff_t s8count(s8 s, char f);
+
+// Return the s8 that stretched from beg to end.
+s8 s8span(char *beg, char *end);
+
+// Cut the string s at the character c.
+Cut s8cut(s8 s, char c);
+
 
 #ifdef __cplusplus
 }

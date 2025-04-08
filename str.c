@@ -4,7 +4,7 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-04-08T16:02:59+0200
+// Last modified: 2025-04-09T00:54:17+0200
 
 #include <assert.h>
 #include <string.h>
@@ -56,3 +56,39 @@ ptrdiff_t s8find(s8 s, s8 f)
   }
   return -1;
 }
+
+ptrdiff_t s8count(s8 s, char f)
+{
+  ptrdiff_t rv = 0;
+  for (ptrdiff_t j = 0; j < s.len; j++) {
+    if (s.data[j] == f) {
+      rv++;
+    }
+  }
+  return rv;
+}
+
+s8 s8span(char *beg, char *end)
+{
+    s8 r = {0};
+    r.data = beg;
+    r.len  = beg ? end-beg : 0;
+    return r;
+}
+
+Cut s8cut(s8 s, char c)
+{
+  Cut r = {0};
+  if (s.len == 0) {
+    return r;
+  }
+  char *beg = s.data;
+  char *end = s.data + s.len;
+  char *cut = beg;
+  for (; cut<end && *cut!=c; cut++) {}
+  r.ok   = cut < end;
+  r.head = s8span(beg, cut);
+  r.tail = s8span(cut+r.ok, end);
+  return r;
+}
+
