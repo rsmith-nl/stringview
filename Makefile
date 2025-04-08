@@ -4,7 +4,7 @@
 # Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 # SPDX-License-Identifier: MIT
 # Created: 2025-04-07T22:53:50+0200
-# Last modified: 2025-04-07T23:13:42+0200
+# Last modified: 2025-04-08T19:10:02+0200
 
 # Define the C compiler to be used, if not the default cc.
 #CC = gcc13
@@ -50,7 +50,7 @@ MPAGES = .3
 DISTFILES = Makefile README LICENSE $(MPAGES)
 
 # Name and source of the test program
-TEST = _test
+TEST = test
 TESTSRC = $(TEST).c
 
 # Extra stuff to add into the distribution.
@@ -94,6 +94,14 @@ $(STATIC): $(OBJS)
 
 $(TEST): $(TESTSRC) $(STATIC)
 	$(CC) -o $(TEST) $(TESTSRC) $(STATIC)
+
+.PHONY: style
+style:  ## Reformat source code using astyle.
+	astyle -n *.c *.h
+
+.PHONY: tidy
+tidy:  ## Run static code checker clang-tidy.
+	clang-tidy19 --quiet *.c *.h
 
 clean:;  ## remove all generated files
 	-rm -f $(OBJS) core *~ $(SHARED) $(STATIC) $(TARFILE) \
