@@ -4,7 +4,7 @@
 # Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 # SPDX-License-Identifier: MIT
 # Created: 2025-04-07T22:53:50+0200
-# Last modified: 2025-04-09T00:41:30+0200
+# Last modified: 2025-04-09T10:15:26+0200
 
 # Define the C compiler to be used, if not the default cc.
 #CC = gcc13
@@ -32,16 +32,16 @@ MDEST = /usr/local/share/man/man3
 # 'lib' wil be prepended automagically to the basename.
 # for libfoo.so.0.1.2 the basename is foo, version_major is 0,
 # version_minor is 1 and patchlevel is 2.
-BASENAME      = str
+BASENAME      = sv
 VERSION_MAJOR = 0
 VERSION_MINOR = 0
 PATCHLEVEL    = 1
 
 # Name of the library header file.
-HDRS = str.h
+HDRS = sv.h
 
 # list of source files
-SRC = str.c
+SRC = sv.c
 
 # Name of the manual pages.
 MPAGES = .3
@@ -50,8 +50,7 @@ MPAGES = .3
 DISTFILES = Makefile README LICENSE $(MPAGES)
 
 # Name and source of the test program
-TEST = _test
-TESTSRC = $(TEST).c
+TESTSRC = test.c
 
 # Extra stuff to add into the distribution.
 XTRA_DIST = 
@@ -83,7 +82,6 @@ help::
 static:		$(STATIC)  ## build static library
 shared:		$(SHARED)  ## build shared library
 all:		$(SHARED) $(STATIC)  ## build static and shared library
-test: $(TEST)  ## build a test program
 
 $(SHARED):	$(OBJS)
 	$(CC) -shared -Wl,-soname,lib$(BASENAME).so.$(VERSION_MAJOR) \
@@ -92,8 +90,8 @@ $(SHARED):	$(OBJS)
 $(STATIC): $(OBJS)
 	ar crus $(STATIC) $(OBJS)
 
-$(TEST): $(TESTSRC) $(STATIC)
-	$(CC) -o $(TEST) $(TESTSRC) $(STATIC)
+test: $(TESTSRC) $(STATIC)  # build test program
+	$(CC) -o test $(TESTSRC) $(STATIC)
 
 .PHONY: style
 style:  ## Reformat source code using astyle.
@@ -105,7 +103,7 @@ tidy:  ## Run static code checker clang-tidy.
 
 clean:;  ## remove all generated files
 	-rm -f $(OBJS) core *~ $(SHARED) $(STATIC) $(TARFILE) \
-	$(LOG) $(TEST) $(MPAGES:.3=.ps) \
+	$(LOG) test $(MPAGES:.3=.ps) \
 	$(MPAGES:.3=.txt) $(MPAGES:.3=.html)
 
 # Check if the user has root privileges.
