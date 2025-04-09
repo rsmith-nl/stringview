@@ -70,10 +70,10 @@ ptrdiff_t sv8count(Sv8 s, char f)
 
 Sv8 sv8span(char *beg, char *end)
 {
-    Sv8 r = {0};
-    r.data = beg;
-    r.len  = beg ? end-beg : 0;
-    return r;
+  Sv8 r = {0};
+  r.data = beg;
+  r.len  = beg ? end-beg : 0;
+  return r;
 }
 
 Cut sv8cut(Sv8 s, char c)
