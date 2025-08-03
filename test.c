@@ -4,7 +4,7 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2025-08-03T21:38:06+0200
+// Last modified: 2025-08-03T21:45:24+0200
 
 #include <stdio.h>
 #include "stringview.h"
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
   test(sv8count(a, 'e') == 1);
   test(sv8count(a, 'q') == 0);
   Sv8 orig = SV8("first\nlast");
-  Cut ct = sv8cut(orig, '\n');
+  Sv8Cut ct = sv8cut(orig, '\n');
   test(ct.ok == true);
   if (ct.ok) {
     test(sv8equals(ct.head, SV8("first")));

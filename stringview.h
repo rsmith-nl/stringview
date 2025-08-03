@@ -4,7 +4,7 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-08-03T21:39:09+0200
+// Last modified: 2025-08-03T21:44:24+0200
 
 #pragma once
 #include <stddef.h>  // ptrdiff_t
@@ -24,7 +24,7 @@ typedef struct {
   Sv8 head;
   Sv8 tail;
   bool ok;
-} Cut;
+} Sv8Cut;
 
 
 #ifdef __cplusplus
@@ -54,7 +54,7 @@ extern ptrdiff_t sv8count(Sv8 s, char f);
 extern Sv8 sv8span(char *beg, char *end);
 
 // Cut the string s at the character c.
-extern Cut sv8cut(Sv8 s, char c);
+extern Sv8Cut sv8cut(Sv8 s, char c);
 
 
 #ifdef __cplusplus
