@@ -4,12 +4,12 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-04-09T10:13:15+0200
+// Last modified: 2025-08-03T21:39:21+0200
 
 #include <assert.h>
 #include <string.h>
 
-#include "sv.h"
+#include "stringview.h"
 
 bool sv8equals(Sv8 a, Sv8 b)
 {

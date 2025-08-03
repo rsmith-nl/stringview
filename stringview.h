@@ -4,7 +4,7 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-04-09T10:13:50+0200
+// Last modified: 2025-08-03T21:39:09+0200
 
 #pragma once
 #include <stddef.h>  // ptrdiff_t
@@ -12,8 +12,8 @@
 
 #define SV8(s)    (Sv8){s, sizeof(s)-1}
 
-// Note that these strings do not allocate memory.
-// So they are *views* of a string.
+// Note that these structures do not allocate memory.
+// So they are *views* of a existing string in memory somewhere.
 
 typedef struct {
   char *data;

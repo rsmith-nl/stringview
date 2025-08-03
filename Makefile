@@ -4,7 +4,7 @@
 # Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 # SPDX-License-Identifier: MIT
 # Created: 2025-04-07T22:53:50+0200
-# Last modified: 2025-08-03T11:57:37+0200
+# Last modified: 2025-08-03T21:39:52+0200
 
 # Define the C compiler to be used, if not the default cc.
 #CC = gcc13
@@ -32,16 +32,16 @@ MDEST = /usr/local/share/man/man3
 # 'lib' wil be prepended automagically to the basename.
 # for libfoo.so.0.1.2 the basename is foo, version_major is 0,
 # version_minor is 1 and patchlevel is 2.
-BASENAME      = sv
+BASENAME      = stringview
 VERSION_MAJOR = 0
 VERSION_MINOR = 0
 PATCHLEVEL    = 1
 
 # Name of the library header file.
-HDRS = sv.h
+HDRS = stringview.h
 
 # list of source files
-SRC = sv.c
+SRC = stringview.c
 
 # Name of the manual pages.
 MPAGES = .3
