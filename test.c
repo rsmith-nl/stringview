@@ -4,7 +4,7 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2025-08-03T21:45:24+0200
+// Last modified: 2025-08-04T23:42:08+0200
 
 #include <stdio.h>
 #include "stringview.h"
@@ -47,6 +47,13 @@ int main(int argc, char *argv[])
   if (ct.ok) {
     test(sv8equals(ct.head, SV8("first")));
     test(sv8equals(ct.tail, SV8("last")));
+  }
+  orig = SV8("100  0 Hyer's carbon fiber");
+  ct = sv8lsplit(orig);
+  test(ct.ok == true);
+  if (ct.ok) {
+    test(sv8equals(ct.head, SV8("100")));
+    test(sv8equals(ct.tail, SV8("0 Hyer's carbon fiber")));
   }
   return 0;
 }
