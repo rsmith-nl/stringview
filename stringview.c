@@ -4,9 +4,10 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-08-03T21:44:39+0200
+// Last modified: 2025-08-04T23:35:21+0200
 
 #include <assert.h>
+#include <stdint.h>
 #include <string.h>
 
 #include "stringview.h"
@@ -89,6 +90,36 @@ Sv8Cut sv8cut(Sv8 s, char c)
   r.ok   = cut < end;
   r.head = sv8span(beg, cut);
   r.tail = sv8span(cut+r.ok, end);
+  return r;
+}
+
+Sv8Cut sv8lsplit(Sv8 s)
+{
+  Sv8Cut r = {0};
+  if (s.len == 0) {
+    return r;
+  }
+  char *beg = s.data;
+  char *end = s.data + s.len;
+  char *cut = beg;
+  char *startws = 0, *endws = 0;
+  while (cut<end) {
+    char c = *cut;
+    if (c==' '||c=='\t'|c=='\r'|c=='\n'||c=='\v'||c=='\f') { // whitespace
+      if (startws==0) {
+        startws = cut;
+      }
+    } else { // not whitespace
+      if (startws!=0) {
+        endws = cut;
+        break;
+      }
+    }
+    cut++;
+  }
+  r.ok   = cut < end;
+  r.head = sv8span(beg, startws);
+  r.tail = sv8span(endws, end);
   return r;
 }
 
