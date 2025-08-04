@@ -4,7 +4,7 @@
 # Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 # SPDX-License-Identifier: MIT
 # Created: 2025-04-07T22:53:50+0200
-# Last modified: 2025-08-03T21:39:52+0200
+# Last modified: 2025-08-04T23:43:46+0200
 
 # Define the C compiler to be used, if not the default cc.
 #CC = gcc13
@@ -90,8 +90,8 @@ $(SHARED):	$(OBJS)
 $(STATIC): $(OBJS)
 	ar crus $(STATIC) $(OBJS)
 
-test: $(TESTSRC) $(STATIC)  ## build test program
-	$(CC) -o test $(TESTSRC) $(STATIC)
+test: $(TESTSRC) $(SRC)  ## build test program
+	$(CC) -o test $(TESTSRC) $(SRC)
 
 .PHONY: style
 style:  ## Reformat source code using astyle.
