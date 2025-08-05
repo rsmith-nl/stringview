@@ -1,10 +1,10 @@
-// file: _test.c
+// file: test.c
 // vim:fileencoding=utf-8:ft=c:tabstop=2
 //
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2025-08-05T22:24:11+0200
+// Last modified: 2025-08-05T23:51:41+0200
 
 #include <stdio.h>
 #include <stdint.h>
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     test(sv8equals(ct.head, SV8("100")));
     test(sv8equals(ct.tail, SV8("0 Hyer's carbon fiber")));
   }
-  Sv8Int rv;
+  Sv8Int rv = {0};
   rv = sv8toi(SV8("00100"));
   test(rv.ok && rv.result == 100 && rv.tail.len == 0);
   rv = sv8toi(SV8("-23"));
@@ -69,5 +69,10 @@ int main(int argc, char *argv[])
   test(rv.ok && rv.result == 0 && sv8equals(rv.tail, SV8("foo")));
   rv = sv8toi(SV8("-7bar"));
   test(rv.ok && rv.result == -7 && sv8equals(rv.tail, SV8("bar")));
+  Sv8Double rv2 = {0};
+  rv2 = sv8tod(SV8("-13.623e5 Pa"));
+  test(rv2.ok);
+  fprintf(stderr, "rv.result = %g\n", rv2.result);
+  test(sv8equals(rv2.tail, SV8(" Pa")));
   return 0;
 }
