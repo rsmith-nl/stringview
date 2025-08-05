@@ -4,7 +4,7 @@
 # Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 # SPDX-License-Identifier: MIT
 # Created: 2025-04-07T22:53:50+0200
-# Last modified: 2025-08-05T22:01:12+0200
+# Last modified: 2025-08-06T01:35:50+0200
 
 # Define the C compiler to be used, if not the default cc.
 #CC = gcc13
@@ -18,7 +18,7 @@ CFLAGS = -pipe -std=c11 -fPIC -g -Wall -Wextra -Wstrict-prototypes -Wpedantic \
 		 -Wshadow-all -Wmissing-field-initializers -Wpointer-arith
 
 # Extra libraries to be linked.
-LIBS += 
+LIBS += -lm
 
 # Where to search for additional header files.
 #HDIRS = -I/usr/X11R6/include
@@ -99,7 +99,7 @@ $(STATIC): $(OBJS)
 	ar crus $(STATIC) $(OBJS)
 
 test: $(TESTSRC) $(SRC)  ## build test program
-	$(CC) -o test $(TESTSRC) $(SRC)
+	$(CC) -o test $(TESTSRC) $(SRC) $(LIBS)
 
 .PHONY: style
 style:  ## Reformat source code using astyle.
