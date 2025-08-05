@@ -4,7 +4,7 @@
 # Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 # SPDX-License-Identifier: MIT
 # Created: 2025-04-07T22:53:50+0200
-# Last modified: 2025-08-04T23:43:46+0200
+# Last modified: 2025-08-05T22:01:12+0200
 
 # Define the C compiler to be used, if not the default cc.
 #CC = gcc13
@@ -83,6 +83,14 @@ static:		$(STATIC)  ## build static library
 shared:		$(SHARED)  ## build shared library
 all:		$(SHARED) $(STATIC)  ## build static and shared library
 
+graphs: sv8tod.pdf sv8toi.pdf  ## build FSM graphs for sv8toi and sv8tod.
+
+sv8tod.pdf: sv8tod.dot
+	dot -Tpdf -osv8tod.pdf sv8tod.dot
+
+sv8toi.pdf: sv8toi.dot
+	dot -Tpdf -osv8toi.pdf sv8toi.dot
+
 $(SHARED):	$(OBJS)
 	$(CC) -shared -Wl,-soname,lib$(BASENAME).so.$(VERSION_MAJOR) \
 	-o $(SHARED) $(OBJS) $(LIBS)
@@ -104,7 +112,8 @@ tidy:  ## Run static code checker clang-tidy.
 clean:;  ## remove all generated files
 	-rm -f $(OBJS) core *~ $(SHARED) $(STATIC) $(TARFILE) \
 	$(LOG) test $(MPAGES:.3=.ps) \
-	$(MPAGES:.3=.txt) $(MPAGES:.3=.html)
+	$(MPAGES:.3=.txt) $(MPAGES:.3=.html) \
+	sv8tod.pdf sv8toi.pdf
 
 # Check if the user has root privileges.
 is_root:;

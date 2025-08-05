@@ -1,0 +1,22 @@
+digraph fsm_floating_point {
+    rankdir=LR;
+    node [shape=doublecircle]; 0, 2, 3, 4, 7, 8;
+    node [shape=circle];
+    0 -> 1 [label="[-]"];
+    0 -> 2 [label="[0]"];
+    1 -> 2 [label="[0]"];
+    0 -> 8 [label="[1-9]"];
+    1 -> 8 [label="[1-9]"];
+    8 -> 8 [label="[0-9]"];
+    2 -> 3 [label="[.]"];
+    8 -> 3 [label="[.]"];
+    3 -> 4 [label="[0-9]"];
+    4 -> 4 [label="[0-9]"];
+    2 -> 5 [label="[eE]"];
+    4 -> 5 [label="[eE]"];
+    8 -> 5 [label="[eE]"];
+    5 -> 6 [label="[+-]"];
+    5 -> 7 [label="[0-9]"];
+    6 -> 7 [label="[0-9]"];
+    7 -> 7 [label="[0-9]"];
+}

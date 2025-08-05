@@ -1,3 +1,4 @@
 libstringview.a
 test
 *.o
+*.pdf
