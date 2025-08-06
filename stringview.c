@@ -4,7 +4,7 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-08-06T02:00:39+0200
+// Last modified: 2025-08-06T18:32:14+0200
 
 #include <assert.h>
 #include <math.h>
@@ -186,7 +186,7 @@ Sv8Int sv8toi(Sv8 s)
       case 3:
         if (c>='0' && c <='9') {
           state = 3;
-          if ((2<<30)/number < 10) { // will overflow.
+          if ((1<<30)/number < 10) { // will overflow.
             goto fail2;
           }
           number = number*10 + c - '0';
