@@ -4,14 +4,19 @@
 # Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 # SPDX-License-Identifier: MIT
 # Created: 2025-04-07T22:53:50+0200
-# Last modified: 2025-08-06T01:35:50+0200
+# Last modified: 2025-08-06T18:17:27+0200
 
 # Define the C compiler to be used, if not the default cc.
 #CC = gcc13
 
 # The next line is for building optimized libraries.
-CFLAGS = -Os -pipe -std=c11 -fPIC -ffast-math
+#CFLAGS = -Os -pipe -std=c11 -fPIC -ffast-math
+# The next line is for building debugging libraries
+CFLAGS = -pipe -std=c11 -fPIC -g -Wall -Wextra -Wstrict-prototypes -Wpedantic \
+		 -Wshadow-all -Wmissing-field-initializers -Wpointer-arith
 LFLAGS += -s -pipe -fmerge-constants
+
+
 
 # The next line is for building debugging libraries.
 CFLAGS = -pipe -std=c11 -fPIC -g -Wall -Wextra -Wstrict-prototypes -Wpedantic \
@@ -99,7 +104,7 @@ $(STATIC): $(OBJS)
 	ar crus $(STATIC) $(OBJS)
 
 test: $(TESTSRC) $(SRC)  ## build test program
-	$(CC) -o test $(TESTSRC) $(SRC) $(LIBS)
+	$(CC) $(CFLAGS) -o test $(TESTSRC) $(SRC) $(LIBS)
 
 .PHONY: style
 style:  ## Reformat source code using astyle.
