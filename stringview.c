@@ -4,9 +4,10 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-08-05T23:49:21+0200
+// Last modified: 2025-08-06T02:00:39+0200
 
 #include <assert.h>
+#include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -136,7 +137,7 @@ Sv8Cut sv8lsplit(Sv8 s)
 Sv8Int sv8toi(Sv8 s)
 {
   // This scanner is implemented as a state machine.
-  // See sv8toi.pdf to see how the state transitions work.
+  // See sv8toi.pdf to see its diagram.
   Sv8Int rv = {0};
   s = sv8lstrip(s);
   char *beg = s.data;
@@ -180,22 +181,24 @@ Sv8Int sv8toi(Sv8 s)
           number = c - '0';
         } else {
           stop = true;
-          beg--;
         }
         break;
       case 3:
         if (c>='0' && c <='9') {
           state = 3;
+          if ((2<<30)/number < 10) { // will overflow.
+            goto fail2;
+          }
           number = number*10 + c - '0';
         } else {
           stop = true; // non-numeric character
-          if (beg < end) {
-            beg--;
-          }
         }
         break;
     } // switch
   } // while
+  if (stop==true) {
+    beg--;
+  }
   rv.result = number;
   if (negative) {
     rv.result *= -1;
@@ -213,7 +216,7 @@ fail2:
 Sv8Double sv8tod(Sv8 s)
 {
   // This scanner is implemented as a state machine.
-  // See sv8tod.pdf to see how the state transitions work.
+  // See sv8tod.pdf to see its diagram.
   // Diagram concept from:
   //   https://www.codeproject.com/Articles/5291098/\
   //   Fun-With-State-Machines-Incrementally-Parsing-Numb
@@ -223,12 +226,6 @@ Sv8Double sv8tod(Sv8 s)
   bool stop = false;
   bool neg_num = false, neg_exp = false;
   s = sv8lstrip(s);
-  // >>DEBUGGING
-  char tmp[s.len+1];
-  memcpy(tmp, s.data, s.len);
-  tmp[s.len] = 0;
-  fprintf(stderr, "DEBUG: s.data = \"%s\"\n", tmp);
-  // <<DEBUGGING
   char *beg = s.data;
   char *end = s.data + s.len;
   while (beg<end && !stop) {
@@ -291,6 +288,7 @@ Sv8Double sv8tod(Sv8 s)
       case 5:
         if (c>='0' && c<='9') {
           state = 7;
+          exponent = 10*exponent + c - '0';
         } else if (c=='+') {
           state = 6;
         } else if (c=='-') {
@@ -303,6 +301,7 @@ Sv8Double sv8tod(Sv8 s)
       case 6:
         if (c>='0' && c<='9') {
           state = 7;
+          exponent = 10*exponent + c - '0';
         } else {
           goto fail1; // not a number after [eE][+-]
         }
@@ -310,6 +309,9 @@ Sv8Double sv8tod(Sv8 s)
       case 7:
         if (c>='0' && c<='9') {
           state = 7;
+          exponent = 10*exponent + c - '0';
+        } else {
+          stop = true;
         }
         break;
       case 8:
@@ -326,14 +328,21 @@ Sv8Double sv8tod(Sv8 s)
         break;
     } // switch
   } // while
+  if (exponent >= 308) {
+    goto fail1; // exponent too large
+  } else if (neg_exp == true) {
+    exponent *= -1;
+  }
+  if (stop==true) {
+    beg--;
+  }
   rv.ok = true;
-  fprintf(stderr,"DEBUG: whole = %d\n", whole);
-  fprintf(stderr, "DEBUG: fractional/fpower = %d/%d\n", fractional, fpower);
-  rv.result = (double)whole + (double)fractional / fpower;
+  rv.result = (double)whole + ((double)fractional)/fpower;
   if (neg_num) {
     rv.result *= -1.0;
   }
-  // TODO: set rv.tail.
+  rv.result *= pow(10, exponent);
+  rv.tail = sv8span(beg, end);
   return rv;
 fail1:
   rv.ok = false;

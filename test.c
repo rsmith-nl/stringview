@@ -4,10 +4,11 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2025-08-05T23:51:41+0200
+// Last modified: 2025-08-06T01:52:34+0200
 
-#include <stdio.h>
+#include <math.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 #include "stringview.h"
 
@@ -71,8 +72,7 @@ int main(int argc, char *argv[])
   test(rv.ok && rv.result == -7 && sv8equals(rv.tail, SV8("bar")));
   Sv8Double rv2 = {0};
   rv2 = sv8tod(SV8("-13.623e5 Pa"));
-  test(rv2.ok);
-  fprintf(stderr, "rv.result = %g\n", rv2.result);
+  test(rv2.ok && fabs(rv2.result - -1.3623e+06) < 0.001);
   test(sv8equals(rv2.tail, SV8(" Pa")));
   return 0;
 }
