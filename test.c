@@ -4,7 +4,7 @@
 // Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: MIT
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2025-08-06T01:52:34+0200
+// Last modified: 2025-08-06T18:35:54+0200
 
 #include <math.h>
 #include <stdint.h>
@@ -60,16 +60,31 @@ int main(int argc, char *argv[])
     test(sv8equals(ct.tail, SV8("0 Hyer's carbon fiber")));
   }
   Sv8Int rv = {0};
+  fprintf(stderr, "Testing sv8toi \"00100\"\n");
   rv = sv8toi(SV8("00100"));
-  test(rv.ok && rv.result == 100 && rv.tail.len == 0);
+  test(rv.ok);
+  test(rv.result == 100);
+  test(rv.tail.len == 0);
+  fprintf(stderr, "Testing sv8toi \"-23\"\n");
   rv = sv8toi(SV8("-23"));
-  test(rv.ok && rv.result == -23 && rv.tail.len == 0);
+  test(rv.ok);
+  test(rv.result == -23);
+  test(rv.tail.len == 0);
+  fprintf(stderr, "Testing sv8toi \"+743\"\n");
   rv = sv8toi(SV8("+742"));
-  test(rv.ok && rv.result == 742 && rv.tail.len == 0);
+  test(rv.ok);
+  test(rv.result == 742);
+  test(rv.tail.len == 0);
+  fprintf(stderr, "Testing sv8toi \"00foo\"\n");
   rv = sv8toi(SV8("00foo"));
-  test(rv.ok && rv.result == 0 && sv8equals(rv.tail, SV8("foo")));
+  test(rv.ok);
+  test(rv.result == 0);
+  test(sv8equals(rv.tail, SV8("foo")));
+  fprintf(stderr, "Testing sv8toi \"-7bar\"\n");
   rv = sv8toi(SV8("-7bar"));
-  test(rv.ok && rv.result == -7 && sv8equals(rv.tail, SV8("bar")));
+  test(rv.ok);
+  test(rv.result == -7);
+  test(sv8equals(rv.tail, SV8("bar")));
   Sv8Double rv2 = {0};
   rv2 = sv8tod(SV8("-13.623e5 Pa"));
   test(rv2.ok && fabs(rv2.result - -1.3623e+06) < 0.001);
