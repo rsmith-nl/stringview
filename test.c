@@ -1,10 +1,11 @@
 // file: test.c
 // vim:fileencoding=utf-8:ft=c:tabstop=2
+// This is free and unencumbered software released into the public domain.
 //
-// Copyright © 2025 R.F. Smith <rsmith@xs4all.nl>
-// SPDX-License-Identifier: MIT
+// Author: R.F. Smith <rsmith@xs4all.nl>
+// SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2025-08-07T20:25:32+0200
+// Last modified: 2025-08-08T04:16:49+0200
 
 #include <math.h>
 #include <stdint.h>
