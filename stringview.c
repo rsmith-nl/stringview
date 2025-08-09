@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-08-08T05:00:07+0200
+// Last modified: 2025-08-09T11:08:01+0200
 
 #include <assert.h>
 #include <math.h>
@@ -355,7 +355,7 @@ fail1:
 // FNV-1a hash. With thanks to Chris Wellons
 // Source: https://nullprogram.com/blog/2025/01/19/
 // Also: https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function
-uint64_t hash64(Sv8 s)
+uint64_t sv8hash64(Sv8 s)
 {
   uint64_t h = 0x100;
   for (ptrdiff_t i = 0; i < s.len; i++) {
