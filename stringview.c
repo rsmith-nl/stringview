@@ -5,7 +5,9 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-08-09T11:08:01+0200
+// Last modified: 2025-08-09T11:10:59+0200
+
+#include "stringview.h"
 
 #include <assert.h>
 #include <math.h>
@@ -13,9 +15,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
-
-#include "stringview.h"
-
 
 static bool _isspace(char c)
 {
@@ -363,4 +362,13 @@ uint64_t sv8hash64(Sv8 s)
     h *= 1111111111111111111;
   }
   return h;
+}
+
+#define CSBSZ 256
+char *sv8cstring(Sv8 s)
+{
+  static char buf[CSBSZ];
+  memset(buf, 0, CSBSZ);
+  memcpy(buf, s.data, s.len<CSBSZ?s.len:(CSBSZ-1));
+  return buf;
 }
