@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2025-08-08T04:16:49+0200
+// Last modified: 2025-08-09T11:35:28+0200
 
 #include <math.h>
 #include <stdint.h>
@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
   //...         h *= 1111111111111111111
   //...         h = h % 2**64
   //...     return h
-  test(hash64(SV8("this is a test"))==0x102ab6cd62d10f01);
-  test(hash64(SV8("foo"))==0x481ef248036ba4b4);
+  test(sv8hash64(SV8("this is a test"))==0x102ab6cd62d10f01);
+  test(sv8hash64(SV8("foo"))==0x481ef248036ba4b4);
   return 0;
 }
