@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2025-08-09T11:35:28+0200
+// Last modified: 2025-08-09T11:39:49+0200
 
 #include <math.h>
 #include <stdint.h>
@@ -81,6 +81,10 @@ int main(int argc, char *argv[])
   test(rv.ok);
   test(rv.result == 0);
   test(sv8equals(rv.tail, SV8("foo")));
+  fprintf(stderr, "Testing sv8toi \"0\"\n");
+  rv = sv8toi(SV8("0"));
+  test(rv.ok);
+  test(rv.result == 0);
   fprintf(stderr, "Testing sv8toi \"-7bar\"\n");
   rv = sv8toi(SV8("-7bar"));
   test(rv.ok);
@@ -94,6 +98,12 @@ int main(int argc, char *argv[])
   fprintf(stderr, "Testing sv8tod \"-238000 0.23\"\n");
   rv2 = sv8tod(SV8("238000 0.23"));
   test(rv2.ok && fabs(rv2.result - 238000) < 0.001);
+  fprintf(stderr, "Testing sv8tod \"0 \"\n");
+  rv2 = sv8tod(SV8("0 "));
+  test(rv2.ok && fabs(rv2.result - 0) < 0.001);
+  fprintf(stderr, "Testing sv8tod \"0\"\n");
+  rv2 = sv8tod(SV8("0"));
+  test(rv2.ok && fabs(rv2.result - 0) < 0.001);
   // Hashes calculated with Python:
   //>>> def hash64(s):
   //...     h = 0x100
