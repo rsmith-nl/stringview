@@ -5,12 +5,11 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2025-08-09T11:39:49+0200
+// Last modified: 2025-08-28T22:19:19+0200
 
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <string.h>
 #include "stringview.h"
 
 // For condition testing, e.g. a == b.
@@ -71,7 +70,7 @@ int main(int argc, char *argv[])
   test(rv.ok);
   test(rv.result == -23);
   test(rv.tail.len == 0);
-  fprintf(stderr, "Testing sv8toi \"+743\"\n");
+  fprintf(stderr, "Testing sv8toi \"+742\"\n");
   rv = sv8toi(SV8("+742"));
   test(rv.ok);
   test(rv.result == 742);
