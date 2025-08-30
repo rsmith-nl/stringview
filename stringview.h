@@ -5,12 +5,14 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-08-09T11:11:17+0200
+// Last modified: 2025-08-31T00:47:15+0200
+
+// Inspired by: https://nullprogram.com/blog/2023/10/08/
 
 #pragma once
-#include <stddef.h>  // ptrdiff_t
-#include <stdbool.h>  // bool
-#include <stdint.h>  // int32_t
+#include <stddef.h>     // ptrdiff_t
+#include <stdbool.h>    // bool
+#include <stdint.h>     // int32_t
 
 #define SV8(s)    (Sv8){s, sizeof(s)-1}
 
