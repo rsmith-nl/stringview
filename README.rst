@@ -5,7 +5,7 @@ String views in C
 :tags: C programming, string handling, public domain
 :author: Roland Smith
 
-.. Last modified: 2025-08-31T10:20:19+0200
+.. Last modified: 2025-08-31T12:45:16+0200
 .. vim:spelllang=en
 
 Introduction
@@ -31,7 +31,6 @@ string.
 Usage
 =====
 
-The included Makefile can build a static and dynamic library on UNIX-like systems.
-But its main purpose is to compile the test suite.
+The purpose of the included Makefile  is to compile the test suite.
 In general I would advise just to add ``stringview.h`` and ``stringview.c`` to
 your project.
