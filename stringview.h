@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-08-31T00:47:15+0200
+// Last modified: 2025-08-31T23:48:44+0200
 
 // Inspired by: https://nullprogram.com/blog/2023/10/08/
 
@@ -14,6 +14,8 @@
 #include <stdbool.h>    // bool
 #include <stdint.h>     // int32_t
 
+// The following works with string constants.
+// Note that it does not work with members of an array of char pointers!
 #define SV8(s)    (Sv8){s, sizeof(s)-1}
 
 // Note that these structures do not allocate memory.
