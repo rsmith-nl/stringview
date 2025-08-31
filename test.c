@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2025-08-28T22:19:19+0200
+// Last modified: 2025-09-01T00:23:54+0200
 
 #include <math.h>
 #include <stdint.h>
@@ -94,6 +94,10 @@ int main(int argc, char *argv[])
   rv2 = sv8tod(SV8("-13.623e5 Pa"));
   test(rv2.ok && fabs(rv2.result - -1.3623e+06) < 0.001);
   test(sv8equals(rv2.tail, SV8(" Pa")));
+
+  fprintf(stderr, "Testing sv8tod \"0003.24e+002\"\n");
+  rv2 = sv8tod(SV8("0003.24e+002"));
+  test(rv2.ok && fabs(rv2.result - 3.24e2) < 0.001);
   fprintf(stderr, "Testing sv8tod \"-238000 0.23\"\n");
   rv2 = sv8tod(SV8("238000 0.23"));
   test(rv2.ok && fabs(rv2.result - 238000) < 0.001);
