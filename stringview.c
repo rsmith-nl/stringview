@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-09-01T00:23:05+0200
+// Last modified: 2025-09-08T23:29:47+0200
 
 #include "stringview.h"
 
@@ -147,7 +147,7 @@ Sv8Int sv8toi(Sv8 s)
   while (beg<end && !stop) {
     char c = *beg++;
     switch (state) {
-      case 0:   // Atart state.
+      case 0:   // Start state.
         if (c=='+') {
           state = 1;
         } else if (c=='-') {
