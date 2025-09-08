@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-09-08T23:29:47+0200
+// Last modified: 2025-09-08T23:34:41+0200
 
 #include "stringview.h"
 
@@ -276,18 +276,9 @@ Sv8Double sv8tod(Sv8 s)
           return rv;
         }
         break;
-      case 3:   // After the decimal point.
+      case 3:   // Decimal digits
         if (c>='0' && c<='9') {
-          state = 4;
-          fpower *= 10;
-          fractional = 10*fractional + c - '0';
-        } else {
-          stop = true;
-        }
-        break;
-      case 4:   // Decimal digits.
-        if (c>='0' && c<='9') {
-          state = 4;
+          state = 3;
           fpower *= 10;
           fractional = 10*fractional + c - '0';
         } else if (c=='e' || c=='E') {
