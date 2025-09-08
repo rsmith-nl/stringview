@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2025-09-01T00:23:54+0200
+// Last modified: 2025-09-08T23:20:27+0200
 
 #include <math.h>
 #include <stdint.h>
@@ -16,11 +16,14 @@
 #define test(exp) \
   do \
     if (exp) { \
-      fprintf(stderr, "\033[0;32mPASSED:\033[0m " #exp "\n"); \
+      printf("\033[0;32mPASSED:\033[0m " #exp "\n"); \
     } else { \
-      fprintf(stderr, "\033[1;31mFAILED:\033[0m " #exp "\n"); \
+      printf("\033[1;31mFAILED:\033[0m " #exp "\n"); \
     } \
   while (0)
+
+#define xstr(a) str(a)
+#define str(a) #a
 
 #undef UNUSED
 #define UNUSED(x)(void)(x)
@@ -30,7 +33,9 @@ int main(int argc, char *argv[])
   UNUSED(argc);
   UNUSED(argv);
   Sv8 a = SV8("test"), b = SV8("tast"), c = SV8(" test"), d = SV8("test ");
+  puts("Sv8 a = SV8(\"test\"), b = SV8(\"tast\"), c = SV8(\" test\"), d = SV8(\"test \");");
   Sv8 n = {0};
+  puts("Sv8 n = {0};");
   test(a.len == 4);
   test(c.len == 5);
   test(sv8equals(a, a));
@@ -46,7 +51,9 @@ int main(int argc, char *argv[])
   test(sv8count(a, 'e') == 1);
   test(sv8count(a, 'q') == 0);
   Sv8 orig = SV8("first\nlast");
+  puts("Sv8 orig = SV8(\"first\\nlast\");");
   Sv8Cut ct = sv8cut(orig, '\n');
+  puts("Sv8Cut ct = sv8cut(orig, '\\n');");
   test(ct.ok == true);
   if (ct.ok) {
     test(sv8equals(ct.head, SV8("first")));
@@ -54,58 +61,59 @@ int main(int argc, char *argv[])
   }
   orig = SV8("100  0 Hyer's carbon fiber");
   ct = sv8lsplit(orig);
+  puts("orig = SV8(\"100  0 Hyer's carbon fiber\");");
+  puts("ct = sv8lsplit(orig);");
   test(ct.ok == true);
   if (ct.ok) {
     test(sv8equals(ct.head, SV8("100")));
     test(sv8equals(ct.tail, SV8("0 Hyer's carbon fiber")));
   }
   Sv8Int rv = {0};
-  fprintf(stderr, "Testing sv8toi \"00100\"\n");
   rv = sv8toi(SV8("00100"));
+  puts("rv = sv8toi(SV8(\"00100\"));");
   test(rv.ok);
   test(rv.result == 100);
   test(rv.tail.len == 0);
-  fprintf(stderr, "Testing sv8toi \"-23\"\n");
   rv = sv8toi(SV8("-23"));
+  puts("rv = sv8toi(SV8(\"-23\"));");
   test(rv.ok);
   test(rv.result == -23);
   test(rv.tail.len == 0);
-  fprintf(stderr, "Testing sv8toi \"+742\"\n");
   rv = sv8toi(SV8("+742"));
+  puts("rv = sv8toi(SV8(\"+742\"));");
   test(rv.ok);
   test(rv.result == 742);
   test(rv.tail.len == 0);
-  fprintf(stderr, "Testing sv8toi \"00foo\"\n");
   rv = sv8toi(SV8("00foo"));
+  puts("rv = sv8toi(SV8(\"00foo\"));");
   test(rv.ok);
   test(rv.result == 0);
   test(sv8equals(rv.tail, SV8("foo")));
-  fprintf(stderr, "Testing sv8toi \"0\"\n");
   rv = sv8toi(SV8("0"));
+  puts("rv = sv8toi(SV8(\"0\"));");
   test(rv.ok);
   test(rv.result == 0);
-  fprintf(stderr, "Testing sv8toi \"-7bar\"\n");
   rv = sv8toi(SV8("-7bar"));
+  puts("rv = sv8toi(SV8(\"-7bar\"));");
   test(rv.ok);
   test(rv.result == -7);
   test(sv8equals(rv.tail, SV8("bar")));
-  fprintf(stderr, "Testing sv8tod \"-13.623e5 Pa\"\n");
   Sv8Double rv2 = {0};
   rv2 = sv8tod(SV8("-13.623e5 Pa"));
+  puts("rv2 = sv8tod(SV8(\"-13.623e5 Pa\"));");
   test(rv2.ok && fabs(rv2.result - -1.3623e+06) < 0.001);
   test(sv8equals(rv2.tail, SV8(" Pa")));
-
-  fprintf(stderr, "Testing sv8tod \"0003.24e+002\"\n");
   rv2 = sv8tod(SV8("0003.24e+002"));
+  puts("rv2 = sv8tod(SV8(\"0003.24e+002\"));");
   test(rv2.ok && fabs(rv2.result - 3.24e2) < 0.001);
-  fprintf(stderr, "Testing sv8tod \"-238000 0.23\"\n");
   rv2 = sv8tod(SV8("238000 0.23"));
+  puts("rv2 = sv8tod(SV8(\"238000 0.23\"));");
   test(rv2.ok && fabs(rv2.result - 238000) < 0.001);
-  fprintf(stderr, "Testing sv8tod \"0 \"\n");
   rv2 = sv8tod(SV8("0 "));
+  puts("rv2 = sv8tod(SV8(\"0 \"));");
   test(rv2.ok && fabs(rv2.result - 0) < 0.001);
-  fprintf(stderr, "Testing sv8tod \"0\"\n");
   rv2 = sv8tod(SV8("0"));
+  puts("rv2 = sv8tod(SV8(\"0\"));");
   test(rv2.ok && fabs(rv2.result - 0) < 0.001);
   // Hashes calculated with Python:
   //>>> def hash64(s):
