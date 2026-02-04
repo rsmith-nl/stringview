@@ -5,11 +5,10 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2025-09-08T23:34:41+0200
+// Last modified: 2026-02-04T21:42:46+0100
 
 #include "stringview.h"
 
-#include <assert.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
