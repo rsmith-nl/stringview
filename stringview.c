@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2026-02-04T21:42:46+0100
+// Last modified: 2026-02-18T18:53:33+0100
 
 #include "stringview.h"
 
@@ -16,7 +16,7 @@
 
 static bool _isspace(char c)
 {
-  if (c==' '||c=='\t'|c=='\r'|c=='\n'||c=='\v'||c=='\f') {
+  if (c==' '||c=='\t'||c=='\r'||c=='\n'||c=='\v'||c=='\f') {
     return true;
   }
   return false;
