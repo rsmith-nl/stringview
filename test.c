@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2025-09-08T23:40:29+0200
+// Last modified: 2026-02-20T12:17:07+0100
 
 #include <math.h>
 #include <stdint.h>
@@ -68,6 +68,8 @@ int main(int argc, char *argv[])
     test(sv8equals(ct.head, SV8("100")));
     test(sv8equals(ct.tail, SV8("0 Hyer's carbon fiber")));
   }
+  test(sv8equals(sv8lskip(a,2), SV8("st")));
+  test(sv8equals(sv8rskip(a,2), SV8("te")));
   Sv8Int rv = {0};
   rv = sv8toi(SV8("00100"));
   puts("rv = sv8toi(SV8(\"00100\"));");
