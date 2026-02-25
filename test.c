@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2026-02-20T12:17:07+0100
+// Last modified: 2026-02-25T23:32:28+0100
 
 #include <math.h>
 #include <stdint.h>
@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
   UNUSED(argc);
   UNUSED(argv);
   Sv8 a = SV8("test"), b = SV8("tast"), c = SV8(" test"), d = SV8("test ");
+  Sv8 e = SV8("exothermic"), f = SV8("exo"), g = SV8("ermic");
   puts("Sv8 a = SV8(\"test\"), b = SV8(\"tast\"), c = SV8(\" test\"), d = SV8(\"test \");");
   Sv8 n = {0};
   puts("Sv8 n = {0};");
@@ -44,6 +45,8 @@ int main(int argc, char *argv[])
   test(!sv8equals(a, c));
   test(sv8equals(a, sv8lstrip(c)));
   test(sv8equals(a, sv8rstrip(d)));
+  test(sv8startswith(e, f));
+  test(sv8endswith(e, g));
   test(sv8find(a, SV8("st")) != -1);
   test(sv8find(a, n) == -1);
   test(sv8find(a, SV8("fo")) == -1);
