@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2026-02-27T20:51:16+0100
+// Last modified: 2026-02-27T21:06:08+0100
 
 #include <math.h>
 #include <stdint.h>
@@ -19,6 +19,7 @@
       printf("\033[0;32mPASSED:\033[0m " #exp "\n"); \
     } else { \
       printf("\033[1;31mFAILED:\033[0m " #exp "\n"); \
+      failcount++; \
     } \
   while (0)
 
@@ -30,6 +31,7 @@
 
 int main(int argc, char *argv[])
 {
+  int32_t failcount = 0;
   UNUSED(argc);
   UNUSED(argv);
   Sv8 a = SV8("test"), b = SV8("tast"), c = SV8(" test"), d = SV8("test ");
@@ -134,5 +136,10 @@ int main(int argc, char *argv[])
   //...     return h
   test(sv8hash64(SV8("this is a test"))==0x102ab6cd62d10f01);
   test(sv8hash64(SV8("foo"))==0x481ef248036ba4b4);
-  return 0;
+  if (failcount == 0) {
+    puts("\033[0;32m+++ All tests PASSED! +++\033[0m\n");
+  } else {
+    printf("\033[1;31m--- %d failing tests.---\033[0m\n", failcount);
+  }
+  return failcount;
 }
