@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2026-02-25T22:28:35+0100
+// Last modified: 2026-02-27T20:57:50+0100
 
 #include "stringview.h"
 
@@ -58,6 +58,29 @@ bool sv8endswith(Sv8 s, Sv8 e)
   }
   return false;
 }
+
+bool sv8contains(Sv8 s, Sv8 c)
+{
+  if (s.len == 0 || c.len == 0 || c.len > s.len) {
+    return false;
+  }
+  for (int32_t j = 0; j < (s.len - c.len); j++) {
+    if (s.data[j] == c.data[0]) {
+      // Check from end first
+      int32_t matchcount = 0;
+      for (int32_t k = c.len-1; k >= 0; k--) {
+        if (s.data[j+k] == c.data[k]) {
+          matchcount++;
+        }
+      }
+      if (matchcount == c.len) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 
 Sv8 sv8lstrip(Sv8 s)
 {
