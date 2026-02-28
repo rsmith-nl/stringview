@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2026-02-27T21:06:08+0100
+// Last modified: 2026-02-28T22:15:35+0100
 
 #include <math.h>
 #include <stdint.h>
@@ -126,6 +126,9 @@ int main(int argc, char *argv[])
   rv2 = sv8tod(SV8("3.1e-3"));
   puts("rv2 = sv8tod(SV8(\"3.1e-3\"));");
   test(rv2.ok && fabs(rv2.result - 3.1e-3) < 0.001);
+  rv2 = sv8tod(SV8("0.07496842391515"));
+  puts("rv2 = sv8tod(SV8(\"0.07496842391515\"));");
+  test(rv2.ok && fabs(rv2.result - 7.496e-2) < 0.001);
   // Hashes calculated with Python:
   //>>> def hash64(s):
   //...     h = 0x100

@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-07 22:53:56 +0200
-// Last modified: 2026-02-27T20:57:50+0100
+// Last modified: 2026-02-28T22:15:06+0100
 
 #include "stringview.h"
 
@@ -295,7 +295,7 @@ Sv8Double sv8tod(Sv8 s)
   //   Fun-With-State-Machines-Incrementally-Parsing-Numb
   Sv8Double rv = {0};
   int32_t state = 0;
-  int32_t whole = 0, fractional = 0, fpower = 1, exponent = 0;
+  int64_t whole = 0, fractional = 0, fpower = 1, exponent = 0;
   bool stop = false;
   bool neg_num = false, neg_exp = false;
   s = sv8lstrip(s);
