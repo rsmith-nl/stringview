@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2026-02-28T22:15:35+0100
+// Last modified: 2026-03-01T19:45:41+0100
 
 #include <math.h>
 #include <stdint.h>
@@ -53,6 +53,10 @@ int main(int argc, char *argv[])
   test(sv8find(a, SV8("st")) != -1);
   test(sv8find(a, n) == -1);
   test(sv8find(a, SV8("fo")) == -1);
+  test(sv8lindex(e, 'q') == -1);
+  test(sv8lindex(e, 'o') == 2);
+  test(sv8rindex(e, 'q') == -1);
+  test(sv8rindex(e, 'r') == 6);
   test(sv8count(a, 't') == 2);
   test(sv8count(a, 'e') == 1);
   test(sv8count(a, 'q') == 0);
