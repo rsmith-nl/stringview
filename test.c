@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2026-03-01T19:45:41+0100
+// Last modified: 2026-03-01T22:57:30+0100
 
 #include <math.h>
 #include <stdint.h>
@@ -50,6 +50,8 @@ int main(int argc, char *argv[])
   test(sv8startswith(e, f));
   test(sv8endswith(e, g));
   test(sv8contains(e, h));
+  test(sv8contains(e, f));
+  test(sv8contains(e, g));
   test(sv8find(a, SV8("st")) != -1);
   test(sv8find(a, n) == -1);
   test(sv8find(a, SV8("fo")) == -1);
