@@ -5,7 +5,7 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2026-03-01T22:57:30+0100
+// Last modified: 2026-03-14T04:16:40+0100
 
 #include <math.h>
 #include <stdint.h>
@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
   UNUSED(argv);
   Sv8 a = SV8("test"), b = SV8("tast"), c = SV8(" test"), d = SV8("test ");
   Sv8 e = SV8("exothermic"), f = SV8("exo"), g = SV8("ermic"), h = SV8("othe");
+  Sv8 p = SV8("partition");
   puts("Sv8 a = SV8(\"test\"), b = SV8(\"tast\"), c = SV8(\" test\"), d = SV8(\"test \");");
   Sv8 n = {0};
   puts("Sv8 n = {0};");
@@ -71,6 +72,9 @@ int main(int argc, char *argv[])
     test(sv8equals(ct.head, SV8("first")));
     test(sv8equals(ct.tail, SV8("last")));
   }
+  puts("ct = sv8cuts(p, SV8(\"tit\"));");
+  ct = sv8cuts(p, SV8("tit"));
+  test(ct.ok == true);
   orig = SV8("100  0 Hyer's carbon fiber");
   ct = sv8lsplit(orig);
   puts("orig = SV8(\"100  0 Hyer's carbon fiber\");");
