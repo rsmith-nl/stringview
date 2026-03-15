@@ -1,11 +1,7 @@
 CFLAGS = -pipe -std=c11 -Wall -Wextra -Wstrict-prototypes -Wpedantic \
                 -Wshadow -Wmissing-field-initializers -Wpointer-arith
 
-check:  ## checks if the code builds cleanly. (default)
-	$(CC) $(CFLAGS) -c stringview.c
-	rm -f *.o
-
-test: test.c stringview.c stringview.h  ## builds the test program.
+test: test.c stringview.c stringview.h  ## builds the test program (default).
 	$(CC) $(CFLAGS) -o test test.c stringview.c -lm
 
 graphs: sv8tod.pdf sv8toi.pdf  ## build FSM graphs for sv8toi and sv8tod. (requires graphviz)
