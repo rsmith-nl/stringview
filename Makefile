@@ -1,8 +1,8 @@
 CFLAGS = -pipe -std=c11 -Wall -Wextra -Wstrict-prototypes -Wpedantic \
                 -Wshadow -Wmissing-field-initializers -Wpointer-arith
 
-test: test.c stringview.c stringview.h  ## builds the test program (default).
-	$(CC) $(CFLAGS) -o test test.c stringview.c -lm
+svtest: svtest.c stringview.c stringview.h  ## builds the test program (default).
+	$(CC) $(CFLAGS) -o svtest svtest.c stringview.c -lm
 
 graphs: sv8tod.pdf sv8toi.pdf  ## build FSM graphs for sv8toi and sv8tod. (requires graphviz)
 
@@ -14,7 +14,7 @@ sv8toi.pdf: sv8toi.dot
 
 .PHONY: clean
 clean:  ## Remove generated files.
-	rm -f *.o test sv8tod.pdf sv8toi.pdf
+	rm -f *.o svtest sv8tod.pdf sv8toi.pdf
 
 .PHONY: style
 style:  ## Reformat source code using astyle.
