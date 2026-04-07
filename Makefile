@@ -28,7 +28,7 @@ sv8toi.pdf: sv8toi.dot
 
 .PHONY: clean
 clean:  ## Remove generated files.
-	rm -f *.o svtest sv8tod.pdf sv8toi.pdf
+	rm -f *.o svtest sv8tod.pdf sv8toi.pdf single_header/stringview.h
 
 .PHONY: style
 style:  ## Reformat source code using astyle.
