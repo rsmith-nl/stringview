@@ -1,8 +1,22 @@
+# vim:fileencoding=utf-8:ft=make
+# Use as many jobs as the computer has cores.
+.MAKEFLAGS: -j C
+
 CFLAGS = -pipe -std=c11 -Wall -Wextra -Wstrict-prototypes -Wpedantic \
                 -Wshadow -Wmissing-field-initializers -Wpointer-arith
 
+all: svtest single_header/stringview.h
+
 svtest: svtest.c stringview.c stringview.h  ## builds the test program (default).
 	$(CC) $(CFLAGS) -o svtest svtest.c stringview.c -lm
+
+single_header/stringview.h: stringview.c stringview.h  ## Build single header library (POSIX only).
+	cp stringview.h single_header/stringview.h
+	echo "" >>single_header/stringview.h
+	echo "#ifdef STRINGVIEW_IMPLEMENTATION" >>single_header/stringview.h
+	tail -n +11 stringview.c >>single_header/stringview.h
+	echo "" >>single_header/stringview.h
+	echo "#endif // STRINGVIEW_IMPLEMENTATION" >>single_header/stringview.h
 
 graphs: sv8tod.pdf sv8toi.pdf  ## build FSM graphs for sv8toi and sv8tod. (requires graphviz)
 

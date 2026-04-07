@@ -5,7 +5,7 @@ String views in C
 :tags: C programming, string handling, public domain
 :author: Roland Smith
 
-.. Last modified: 2025-08-31T12:45:16+0200
+.. Last modified: 2026-04-07T19:19:44+0200
 .. vim:spelllang=en
 
 Introduction
@@ -34,3 +34,13 @@ Usage
 The purpose of the included Makefile  is to compile the test suite.
 In general I would advise just to add ``stringview.h`` and ``stringview.c`` to
 your project.
+
+Alternatively, you can use this project as a *single header library*.
+This variant can be found in the subdirectory ``single_header/stringview.h``.
+To use the single header library, copy the file ``stringview.h`` from
+``single_header/`` into your project.
+In **one** of the C-files you use the single header library in, you should
+define ``STRINGVIEW_IMPLEMENTATION`` before including the library::
+
+    #define STRINGVIEW_IMPLEMENTATION
+    #include "stringview.h"
