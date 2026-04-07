@@ -1,16 +1,17 @@
-// file: svtest.c
+// file: test.c
 // vim:fileencoding=utf-8:ft=c:tabstop=2
 // This is free and unencumbered software released into the public domain.
 //
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2026-03-16T23:03:10+0100
+// Last modified: 2026-04-07T23:05:13+0200
 
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
-#include "stringview.h"
+#define STRINGVIEW_IMPLEMENTATION
+#include "single_header/stringview.h"
 
 #define BOLD_WHITE "\033[1;37m"
 #define CYAN "\033[0;36m"
@@ -46,6 +47,7 @@ int main(int argc, char *argv[])
   int32_t failcount = 0;
   UNUSED(argc);
   UNUSED(argv);
+  puts(PURPLE"Starting the test"RESET);
   Sv8 a = SV8("test"), b = SV8("tast"), c = SV8(" test"), d = SV8("test ");
   Sv8 e = SV8("exothermic"), f = SV8("exo"), g = SV8("ermic"), h = SV8("othe");
   Sv8 p = SV8("partition");
@@ -54,34 +56,34 @@ int main(int argc, char *argv[])
   puts("Sv8 n = {0};");
   test(a.len == 4);
   test(c.len == 5);
-  puts(PURPLE"Running tests for sv8equals"RESET);
+  puts(CYAN"Running tests for sv8equals"RESET);
   test(sv8equals(a, a));
   test(!sv8equals(a, n));
   test(!sv8equals(a, b));
   test(!sv8equals(a, c));
   test(sv8equals(a, sv8lstrip(c)));
   test(sv8equals(a, sv8rstrip(d)));
-  puts(PURPLE"Running tests for sv8startswith/endswith"RESET);
+  puts(CYAN"Running tests for sv8startswith/endswith"RESET);
   test(sv8startswith(e, f));
   test(sv8endswith(e, g));
-  puts(PURPLE"Running tests for sv8contains"RESET);
+  puts(CYAN"Running tests for sv8contains"RESET);
   test(sv8contains(e, h));
   test(sv8contains(e, f));
   test(sv8contains(e, g));
-  puts(PURPLE"Running tests for sv8find"RESET);
+  puts(CYAN"Running tests for sv8find"RESET);
   test(sv8find(a, SV8("st")) == 2);
   test(sv8find(a, n) == -1);
   test(sv8find(a, SV8("fo")) == -1);
-  puts(PURPLE"Running tests for sv8?index"RESET);
+  puts(CYAN"Running tests for sv8?index"RESET);
   test(sv8lindex(e, 'q') == -1);
   test(sv8lindex(e, 'o') == 2);
   test(sv8rindex(e, 'q') == -1);
   test(sv8rindex(e, 'r') == 6);
-  puts(PURPLE"Running tests for sv8count"RESET);
+  puts(CYAN"Running tests for sv8count"RESET);
   test(sv8count(a, 't') == 2);
   test(sv8count(a, 'e') == 1);
   test(sv8count(a, 'q') == 0);
-  puts(PURPLE"Running tests for sv8cut"RESET);
+  puts(CYAN"Running tests for sv8cut"RESET);
   Sv8 orig = SV8("first\nlast");
   puts("Sv8 orig = SV8(\"first\\nlast\");");
   Sv8Cut ct = sv8cut(orig, '\n');
@@ -94,7 +96,7 @@ int main(int argc, char *argv[])
   puts("ct = sv8cuts(p, SV8(\"tit\"));");
   ct = sv8cuts(p, SV8("tit"));
   test(ct.ok == true);
-  puts(PURPLE"Running tests for sv8split"RESET);
+  puts(CYAN"Running tests for sv8split"RESET);
   orig = SV8("100  0 Hyer's carbon fiber");
   ct = sv8lsplit(orig);
   puts("orig = SV8(\"100  0 Hyer's carbon fiber\");");
@@ -106,7 +108,7 @@ int main(int argc, char *argv[])
   }
   test(sv8equals(sv8lskip(a,2), SV8("st")));
   test(sv8equals(sv8rskip(a,2), SV8("te")));
-  puts(PURPLE"Running tests for sv8toi"RESET);
+  puts(CYAN"Running tests for sv8toi"RESET);
   Sv8Int rv = {0};
   rv = sv8toi(SV8("00100"));
   puts("rv = sv8toi(SV8(\"00100\"));");
@@ -151,7 +153,7 @@ int main(int argc, char *argv[])
   rv = sv8toi(SV8("27670116110564327421"));
   test(rv.ok==false);
   test(rv.overflow==true);
-  puts(PURPLE"Running tests for sv8tod"RESET);
+  puts(CYAN"Running tests for sv8tod"RESET);
   Sv8Double rv2 = {0};
   rv2 = sv8tod(SV8("-13.623e5 Pa"));
   puts("rv2 = sv8tod(SV8(\"-13.623e5 Pa\"));");
@@ -175,7 +177,7 @@ int main(int argc, char *argv[])
   rv2 = sv8tod(SV8("0.07496842391515"));
   puts("rv2 = sv8tod(SV8(\"0.07496842391515\"));");
   test(rv2.ok && fabs(rv2.result - 7.496e-2) < 0.001);
-  puts(PURPLE"Running tests for sv8hash64"RESET);
+  puts(CYAN"Running tests for sv8hash64"RESET);
   // Hashes calculated with Python:
   //>>> def hash64(s):
   //...     h = 0x100

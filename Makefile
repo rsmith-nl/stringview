@@ -5,10 +5,10 @@
 CFLAGS = -pipe -std=c11 -Wall -Wextra -Wstrict-prototypes -Wpedantic \
                 -Wshadow -Wmissing-field-initializers -Wpointer-arith
 
-all: svtest single_header/stringview.h
+all: test single_header/stringview.h
 
-svtest: svtest.c stringview.c stringview.h  ## builds the test program (default).
-	$(CC) $(CFLAGS) -o svtest svtest.c stringview.c -lm
+test: test.c single_header/stringview.h  ## builds the test program (default).
+	$(CC) $(CFLAGS) -o test test.c -lm
 
 single_header/stringview.h: stringview.c stringview.h  ## Build single header library (POSIX only).
 	cp stringview.h single_header/stringview.h
@@ -28,7 +28,7 @@ sv8toi.pdf: sv8toi.dot
 
 .PHONY: clean
 clean:  ## Remove generated files.
-	rm -f *.o svtest sv8tod.pdf sv8toi.pdf single_header/stringview.h
+	rm -f *.o test sv8tod.pdf sv8toi.pdf single_header/stringview.h
 
 .PHONY: style
 style:  ## Reformat source code using astyle.
