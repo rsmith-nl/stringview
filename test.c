@@ -106,53 +106,53 @@ int main(int argc, char *argv[])
     test(sv8equals(ct.head, SV8("100")));
     test(sv8equals(ct.tail, SV8("0 Hyer's carbon fiber")));
   }
-  test(sv8equals(sv8lskip(a,2), SV8("st")));
-  test(sv8equals(sv8rskip(a,2), SV8("te")));
+  test(sv8equals(sv8lskip(a, 2), SV8("st")));
+  test(sv8equals(sv8rskip(a, 2), SV8("te")));
   puts(CYAN"Running tests for sv8toi"RESET);
   Sv8Int rv = {0};
   rv = sv8toi(SV8("00100"));
   puts("rv = sv8toi(SV8(\"00100\"));");
-  test(rv.ok==true);
+  test(rv.ok == true);
   test(rv.result == 100);
   test(rv.tail.len == 0);
   rv = sv8toi(SV8("-23"));
   puts("rv = sv8toi(SV8(\"-23\"));");
-  test(rv.ok==true);
+  test(rv.ok == true);
   test(rv.result == -23);
   test(rv.tail.len == 0);
   rv = sv8toi(SV8("+742"));
   puts("rv = sv8toi(SV8(\"+742\"));");
-  test(rv.ok==true);
+  test(rv.ok == true);
   test(rv.result == 742);
   test(rv.tail.len == 0);
   rv = sv8toi(SV8("00foo"));
   puts("rv = sv8toi(SV8(\"00foo\"));");
-  test(rv.ok==true);
+  test(rv.ok == true);
   test(rv.result == 0);
   test(sv8equals(rv.tail, SV8("foo")));
   rv = sv8toi(SV8("0"));
   puts("rv = sv8toi(SV8(\"0\"));");
-  test(rv.ok==true);
+  test(rv.ok == true);
   test(rv.result == 0);
   rv = sv8toi(SV8("-7bar"));
   puts("rv = sv8toi(SV8(\"-7bar\"));");
-  test(rv.ok==true);
+  test(rv.ok == true);
   test(rv.result == -7);
   test(sv8equals(rv.tail, SV8("bar")));
   puts(CYAN"Test 32-bit number (107374182)"RESET);
   rv = sv8toi(SV8("107374182"));
-  test(rv.ok==true);
-  test(rv.is32bits==true);
+  test(rv.ok == true);
+  test(rv.is32bits == true);
   test(rv.result == 107374182);
   puts(CYAN"Test 64-bit number (6442450941)"RESET);
   rv = sv8toi(SV8("6442450941"));
-  test(rv.ok==true);
-  test(rv.is32bits==false);
+  test(rv.ok == true);
+  test(rv.is32bits == false);
   test(rv.result == 6442450941);
   puts(CYAN"Test overflow (27670116110564327421)"RESET);
   rv = sv8toi(SV8("27670116110564327421"));
-  test(rv.ok==false);
-  test(rv.overflow==true);
+  test(rv.ok == false);
+  test(rv.overflow == true);
   puts(CYAN"Running tests for sv8tod"RESET);
   Sv8Double rv2 = {0};
   rv2 = sv8tod(SV8("-13.623e5 Pa"));
@@ -186,8 +186,8 @@ int main(int argc, char *argv[])
   //...         h *= 1111111111111111111
   //...         h = h % 2**64
   //...     return h
-  test(sv8hash64(SV8("this is a test"))==0x102ab6cd62d10f01);
-  test(sv8hash64(SV8("foo"))==0x481ef248036ba4b4);
+  test(sv8hash64(SV8("this is a test")) == 0x102ab6cd62d10f01);
+  test(sv8hash64(SV8("foo")) == 0x481ef248036ba4b4);
   puts(PURPLE"***Result ***"RESET);
   if (failcount == 0) {
     puts(GREEN"+++ All tests PASSED! +++"RESET);
