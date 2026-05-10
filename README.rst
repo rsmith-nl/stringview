@@ -5,7 +5,7 @@ String views in C
 :tags: C programming, string handling, public domain
 :author: Roland Smith
 
-.. Last modified: 2026-04-07T19:19:44+0200
+.. Last modified: 2026-05-10T13:25:15+0200
 .. vim:spelllang=en
 
 Introduction
@@ -26,6 +26,13 @@ operation succeeded and usually a new stringview with the remainder of the
 string.
 
 *This makes string handling in C much more enjoyable, and almost Python-like.*
+
+
+No AI policy
+============
+
+This code is by a human and for humans.
+"AI" / LLM-generated rewrites and additions are not welcome.
 
 
 Usage
