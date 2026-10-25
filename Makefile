@@ -33,7 +33,7 @@ clean:  ## Remove generated files.
 
 .PHONY: style
 style:  ## Reformat source code using astyle.
-	astyle -n --style=1tbs -s2 -p --indent-switches --delete-empty-lines --add-braces *.c *.h
+	astyle -n --style=1tbs -s2 -p -o -O --indent-switches --delete-empty-lines --add-braces *.c *.h
 
 .PHONY: tidy
 tidy:  ## Check the code with clang-tidy
