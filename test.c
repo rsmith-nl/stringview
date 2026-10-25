@@ -5,13 +5,12 @@
 // Author: R.F. Smith <rsmith@xs4all.nl>
 // SPDX-License-Identifier: Unlicense
 // Created: 2025-04-09 00:08:50 +0200
-// Last modified: 2026-04-07T23:05:13+0200
+// Last modified: 2026-10-25T20:25:16+0100
 
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
-#define STRINGVIEW_IMPLEMENTATION
-#include "single_header/stringview.h"
+#include "stringview.c"
 
 #define BOLD_WHITE "\033[1;37m"
 #define CYAN "\033[0;36m"
@@ -39,14 +38,14 @@
 #define xstr(a) str(a)
 #define str(a) #a
 
-#undef UNUSED
-#define UNUSED(x)(void)(x)
+#ifndef VERSION
+#define VERSION "UNKNOWN"
+#endif
 
-int main(int argc, char *argv[])
+int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 {
   int32_t failcount = 0;
-  UNUSED(argc);
-  UNUSED(argv);
+  puts(BOLD_RED"Built from test.c and stringview.c, version "VERSION""RESET);
   puts(PURPLE"Starting the test"RESET);
   Sv8 a = SV8("test"), b = SV8("tast"), c = SV8(" test"), d = SV8("test ");
   Sv8 e = SV8("exothermic"), f = SV8("exo"), g = SV8("ermic"), h = SV8("othe");

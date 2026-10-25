@@ -5,10 +5,12 @@
 CFLAGS = -pipe -std=c11 -Wall -Wextra -Wstrict-prototypes -Wpedantic \
                 -Wshadow -Wmissing-field-initializers -Wpointer-arith
 
+GIT_VERSION != git describe --dirty --always --tags
+
 all: test single_header/stringview.h
 
-test: test.c single_header/stringview.h  ## builds the test program (default).
-	$(CC) $(CFLAGS) -o test test.c -lm
+test: test.c stringview.c stringview.h  ## builds the test program (default).
+	$(CC) $(CFLAGS) -DVERSION="\"${GIT_VERSION}\"" -o test test.c -lm
 
 single_header/stringview.h: stringview.c stringview.h  ## Build single header library (POSIX only).
 	cp stringview.h single_header/stringview.h
